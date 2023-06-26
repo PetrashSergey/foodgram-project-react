@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
 from django.db import models
+
+from .validators import (
+    NotDeletedUsernameValidator,
+    NotMeUsernameValidator,
+    UsernameValidator
+)
 
 
 class User(AbstractUser):
@@ -15,9 +20,9 @@ class User(AbstractUser):
         unique=True,
         blank=False,
         validators=[
-            RegexValidator(
-                regex=r'^[\w.@+-]+\Z',
-            ),
+            NotMeUsernameValidator(),
+            UsernameValidator(),
+            NotDeletedUsernameValidator()
         ]
     )
     email = models.EmailField(verbose_name="Email", unique=True, db_index=True)
