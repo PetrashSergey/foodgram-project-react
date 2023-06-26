@@ -4,7 +4,6 @@ from django.db import models
 
 
 class User(AbstractUser):
-    """Модель кастомного пользователя"""
     AUTHENTICATED = 'user'
     ADMINISTRATOR = 'admin'
     ROLE_CHOICES = [
