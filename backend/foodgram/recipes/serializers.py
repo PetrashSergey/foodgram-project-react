@@ -129,7 +129,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             ingredient_id = ingredient['id']
             if ingredient_id in ingredients_list:
                 raise serializers.ValidationError({
-                    'ingredient': f'Ингредиент {ingredient_id} '
+                    'ingredient': f'Ингредиент "{ingredient_id}" '
                                   f'уже есть в рецепте.'
                 })
             ingredients_list.append(ingredient_id)

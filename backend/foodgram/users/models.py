@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
 
+from .model_fields import LowercaseEmailField
+
 
 class User(AbstractUser):
     AUTHENTICATED = 'user'
@@ -20,7 +22,7 @@ class User(AbstractUser):
             ),
         ]
     )
-    email = models.EmailField(verbose_name="Email", unique=True, db_index=True)
+    email = LowercaseEmailField(verbose_name="Email", unique=True)
     first_name = models.CharField(verbose_name="Имя", max_length=150)
     last_name = models.CharField(verbose_name="Фамилия", max_length=150)
     password = models.CharField(verbose_name='Пароль', max_length=150)
@@ -52,19 +54,18 @@ class Subscription(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="subscriber",
+        related_name='Пользователь - кто подписан',
         verbose_name='subscriber'
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="following",
+        related_name='Пользователь - на кого подписан',
         verbose_name='following'
     )
 
     class Meta:
-        verbose_name = 'subscribe'
-        verbose_name_plural = 'subscribes'
+        verbose_name_plural = 'Подписки'
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'author'],
