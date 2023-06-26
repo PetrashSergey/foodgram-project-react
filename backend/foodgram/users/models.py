@@ -9,12 +9,6 @@ from .validators import (
 
 
 class User(AbstractUser):
-    AUTHENTICATED = 'user'
-    ADMINISTRATOR = 'admin'
-    ROLE_CHOICES = [
-        (AUTHENTICATED, 'Аутентифицированный пользователь'),
-        (ADMINISTRATOR, 'Администратор'),
-    ]
     username = models.CharField(
         max_length=150,
         unique=True,
@@ -29,8 +23,6 @@ class User(AbstractUser):
     first_name = models.CharField(verbose_name="Имя", max_length=150)
     last_name = models.CharField(verbose_name="Фамилия", max_length=150)
     password = models.CharField(verbose_name='Пароль', max_length=150)
-    role = models.CharField(verbose_name='Роль', max_length=200,
-                            choices=ROLE_CHOICES, default=AUTHENTICATED)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
