@@ -43,7 +43,7 @@ class IngredientSerializer(ModelSerializer):
         extra_kwargs = {
             'name': {'required': False},
             'measurement_unit': {'required': False}
-            }
+        }
 
 
 class FavoriteSerializer(ModelSerializer):
@@ -76,16 +76,16 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount')
 
 
-class RecipeListSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(
-        many=True, read_only=True
-    )
-    author = CustomUserSerializer(read_only=True)
-    ingredients = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = Recipe
-        fields = '__all__'
+# class RecipeListSerializer(serializers.ModelSerializer):
+#     tags = TagSerializer(
+#         many=True, read_only=True
+#     )
+#     author = CustomUserSerializer(read_only=True)
+#     ingredients = serializers.SerializerMethodField(read_only=True)
+#
+#     class Meta:
+#         model = Recipe
+#         fields = '__all__'
 
 
 class RecipeListSerializer(serializers.ModelSerializer):

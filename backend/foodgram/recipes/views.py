@@ -124,3 +124,4 @@ class RecipeViewSet(ModelViewSet):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
+        return None
