@@ -10,18 +10,18 @@ class Tag(models.Model):
         verbose_name='Название тэга',
         max_length=200,
         unique=True
-        )
+    )
     color = models.CharField(
         verbose_name='Цвет тэга',
         help_text='Цвет в формате HEX. Пример: #E26C2D',
         max_length=10,
         unique=True,
-        )
+    )
     slug = models.SlugField(
         verbose_name='Слаг тэга',
         max_length=200,
         unique=True,
-        )
+    )
 
     class Meta:
         verbose_name = 'Тэг'
@@ -35,11 +35,11 @@ class Ingredient(models.Model):
     name = models.CharField(
         verbose_name='Название ингредиента',
         max_length=200,
-        )
+    )
     measurement_unit = models.CharField(
         verbose_name='Единица измерения',
         max_length=200,
-        )
+    )
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -55,9 +55,9 @@ class Recipe(models.Model):
         validators=[
             MinValueValidator(
                 1, message='Недопустимое значение (меньше 1 мин).'
-                ),
-            ],
-        )
+            ),
+        ],
+    )
     text = models.TextField(verbose_name='Описание',)
     name = models.CharField(verbose_name='Название', max_length=200,)
     image = models.ImageField(verbose_name='Изображение', upload_to='images/')
@@ -65,25 +65,25 @@ class Recipe(models.Model):
         Tag,
         related_name='recipe',
         verbose_name='Тэги',
-        )
+    )
     ingredients = models.ManyToManyField(
         Ingredient,
         through='IngredientInRecipe',
         verbose_name='Ингредиенты',
         related_name='recipes',
-        )
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='recipes',
         db_column='author',
         verbose_name='Автор',
-        )
+    )
     pub_date = models.DateField(
         default=date.today,
         verbose_name='Дата публикации',
         db_index=True
-        )
+    )
 
     class Meta:
         verbose_name = 'Рецепт'
@@ -96,16 +96,16 @@ class IngredientInRecipe(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
-        )
+    )
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
         verbose_name='Ингредиент',
-        )
+    )
     amount = models.PositiveSmallIntegerField(
         verbose_name='Кол-во',
         validators=[MinValueValidator(1, message='Недопустимое кол-во.')],
-        )
+    )
 
     class Meta:
         ordering = ['-id']
@@ -115,8 +115,8 @@ class IngredientInRecipe(models.Model):
             models.UniqueConstraint(
                 fields=['recipe', 'ingredient'],
                 name='unique_recipe_ingredient'
-                )
-            ]
+            )
+        ]
 
 
 class Favorite(models.Model):
@@ -124,13 +124,13 @@ class Favorite(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        )
+    )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name="favorites",
         verbose_name='Рецепт',
-        )
+    )
 
     class Meta:
         verbose_name = 'Избранное'
@@ -139,8 +139,8 @@ class Favorite(models.Model):
             models.UniqueConstraint(
                 fields=['user', 'recipe'],
                 name='unique_favorite_user_recipe'
-                )
-            ]
+            )
+        ]
 
 
 class ShoppingCart(models.Model):
@@ -149,13 +149,13 @@ class ShoppingCart(models.Model):
         on_delete=models.CASCADE,
         related_name="shopping_carts",
         verbose_name='Пользователь',
-        )
+    )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name="shopping_carts",
         verbose_name='Рецепт',
-        )
+    )
 
     class Meta:
         verbose_name = 'Корзина'
@@ -164,5 +164,5 @@ class ShoppingCart(models.Model):
             models.UniqueConstraint(
                 fields=['user', 'recipe'],
                 name='unique_shoppingCart_user_recipe'
-                )
-            ]
+            )
+        ]

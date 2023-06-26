@@ -59,7 +59,7 @@ class RecipeViewSet(ModelViewSet):
         permission_classes=[IsAuthenticated],
         url_path='download_shopping_cart',
         url_name='download_shopping_cart',
-        )
+    )
     def download_shopping_cart(self, request):
         user = request.user
         if not user.shopping_carts.exists():
@@ -74,7 +74,7 @@ class RecipeViewSet(ModelViewSet):
         buy_list = '\r\n'.join(
             [(f"{ing['name']}: {ing['total_amount']} {ing['unit']} ")
              for ing in ingredients]
-            )
+        )
         response = HttpResponse(buy_list, 'Content-Type: text/plain')
         response['Content-Disposition'] = 'attachment; filename="buy_list.txt"'
         return response
@@ -85,7 +85,7 @@ class RecipeViewSet(ModelViewSet):
         permission_classes=[IsAuthenticated],
         url_path='shopping_cart',
         url_name='shopping_cart',
-        )
+    )
     def shopping_cart(self, request, pk):
         return self.metod_delete_create(request, pk, ShoppingCart)
 
