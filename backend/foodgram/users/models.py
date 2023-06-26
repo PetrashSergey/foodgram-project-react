@@ -18,7 +18,7 @@ class User(AbstractUser):
         validators=[
             RegexValidator(
                 regex=r'^[\w.@+-]+\Z',
-                ),
+            ),
         ]
     )
     email = models.EmailField(verbose_name="Email", unique=True, db_index=True)
