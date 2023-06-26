@@ -76,18 +76,6 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'amount')
 
 
-# class RecipeListSerializer(serializers.ModelSerializer):
-#     tags = TagSerializer(
-#         many=True, read_only=True
-#     )
-#     author = CustomUserSerializer(read_only=True)
-#     ingredients = serializers.SerializerMethodField(read_only=True)
-#
-#     class Meta:
-#         model = Recipe
-#         fields = '__all__'
-
-
 class RecipeListSerializer(serializers.ModelSerializer):
     tags = TagSerializer(
         many=True, read_only=True
@@ -141,7 +129,8 @@ class RecipeSerializer(serializers.ModelSerializer):
             ingredient_id = ingredient['id']
             if ingredient_id in ingredients_list:
                 raise serializers.ValidationError({
-                    'ingredients': 'Такой ингредиент уже есть в рецепте.'
+                    'ingredient': f'Ингредиент {ingredient_id} '
+                                  f'уже есть в рецепте.'
                 })
             ingredients_list.append(ingredient_id)
             amount = ingredient['amount']
