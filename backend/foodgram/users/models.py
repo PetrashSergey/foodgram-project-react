@@ -23,6 +23,10 @@ class User(AbstractUser):
     first_name = models.CharField(verbose_name="Имя", max_length=150)
     last_name = models.CharField(verbose_name="Фамилия", max_length=150)
     password = models.CharField(verbose_name='Пароль', max_length=150)
+    role = models.CharField(
+        "Роль - права доступа",
+        max_length=10,
+    )
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
@@ -42,7 +46,7 @@ class User(AbstractUser):
 
     @property
     def is_admin(self):
-        return self.role == User.ADMINISTRATOR
+        return self.role == self.is_superuser
 
 
 class Subscription(models.Model):
