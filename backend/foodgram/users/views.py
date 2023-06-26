@@ -19,7 +19,7 @@ class CustomUserViewset(views.UserViewSet):
         permission_classes=[IsAuthenticated],
         url_path='subscriptions',
         url_name='subscriptions',
-        )
+    )
     def subscriptions(self, request):
         user = request.user
         queryset = Subscription.objects.filter(user=user)
@@ -37,7 +37,7 @@ class CustomUserViewset(views.UserViewSet):
         permission_classes=[IsAuthenticated],
         url_path='subscribe',
         url_name='subscribe',
-        )
+    )
     def subscribe(self, request, id=None):
         if request.method == 'POST':
             user = request.user

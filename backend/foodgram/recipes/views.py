@@ -70,7 +70,7 @@ class RecipeViewSet(ModelViewSet):
             name=F('ingredient__name'),
             unit=F('ingredient__measurement_unit'),
             total_amount=Sum('amount')
-            ).order_by('-total_amount')
+        ).order_by('-total_amount')
         buy_list = '\r\n'.join(
             [(f"{ing['name']}: {ing['total_amount']} {ing['unit']} ")
              for ing in ingredients]
@@ -95,7 +95,7 @@ class RecipeViewSet(ModelViewSet):
         permission_classes=[IsAuthenticated],
         url_path='favorite',
         url_name='favorite',
-        )
+    )
     def favorite(self, request, pk):
         return self.metod_delete_create(request, pk, Favorite)
 
@@ -108,7 +108,7 @@ class RecipeViewSet(ModelViewSet):
                 return Response(
                     {'errors': 'Данный объект уже создан.'},
                     status=status.HTTP_400_BAD_REQUEST
-                    )
+                )
             favorite = model.objects.create(user=user, recipe=recipe)
             serializer = FavoriteSerializer(favorite)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -121,6 +121,6 @@ class RecipeViewSet(ModelViewSet):
                 {
                     'errors': 'Невозможно удалить. '
                               'Данного объекта не существует.'
-                    },
+                },
                 status=status.HTTP_400_BAD_REQUEST
-                )
+            )

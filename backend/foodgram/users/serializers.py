@@ -19,9 +19,9 @@ class CustomUserCreateSerializer(UserCreateSerializer):
             UniqueValidator(
                 message='Данный адрес уже используется.',
                 queryset=User.objects.all()
-                )
-            ]
-        )
+            )
+        ]
+    )
     username = serializers.CharField(
         validators=[
             UniqueValidator(
@@ -79,7 +79,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source='author.id')
     username = serializers.ReadOnlyField(
         source='author.username',
-        )
+    )
     first_name = serializers.ReadOnlyField(source='author.first_name')
     last_name = serializers.ReadOnlyField(source='author.last_name')
     is_subscribed = serializers.SerializerMethodField()

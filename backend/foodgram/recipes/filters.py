@@ -30,7 +30,7 @@ class FavoritedAndshoppingCartAndAuthorAndTagFilter(FilterSet):
         if is_favorited:
             return queryset.filter(
                 favorites__user=self.request.user
-                ).distinct()
+            ).distinct()
         return queryset
 
     def filter_is_in_shopping_cart(self, queryset, is_in_shopping_cart, slug):
@@ -39,9 +39,9 @@ class FavoritedAndshoppingCartAndAuthorAndTagFilter(FilterSet):
             return queryset
         is_in_shopping_cart = self.request.query_params.get(
             'is_in_shopping_cart',
-            )
+        )
         if is_in_shopping_cart:
             return queryset.filter(
                 shopping_carts__user=self.request.user
-                ).distinct()
+            ).distinct()
         return queryset

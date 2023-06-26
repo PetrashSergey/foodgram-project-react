@@ -22,8 +22,8 @@ class TagSerializer(ModelSerializer):
                 message='Данный tag уже существует.',
                 queryset=Tag.objects.all()
             )
-            ]
-        )
+        ]
+    )
 
     class Meta:
         model = Tag
@@ -33,7 +33,7 @@ class TagSerializer(ModelSerializer):
             'name': {'required': False},
             'slug': {'required': False},
             'color': {'required': False}
-            }
+        }
 
 
 class IngredientSerializer(ModelSerializer):
@@ -124,7 +124,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(),
         many=True
-        )
+    )
     author = CustomUserSerializer(read_only=True)
     image = Base64ImageField()
     cooking_time = serializers.IntegerField(min_value=0)
@@ -176,9 +176,9 @@ class RecipeSerializer(serializers.ModelSerializer):
                 recipe=recipe,
                 ingredient=ingredient['id'],
                 amount=ingredient['amount']
-                )
+            )
             for ingredient in ingredients
-            ]
+        ]
         IngredientInRecipe.objects.bulk_create(create_ingredient)
 
     def create_tags(self, tags, recipe):

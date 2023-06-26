@@ -17,7 +17,7 @@ class User(AbstractUser):
         validators=[
             RegexValidator(
                 regex=r'^[\w.@+-]+\Z',
-                ),
+            ),
         ]
     )
     email = models.EmailField(verbose_name="Email", unique=True, db_index=True)
@@ -54,13 +54,13 @@ class Subscription(models.Model):
         on_delete=models.CASCADE,
         related_name="subscriber",
         verbose_name='subscriber'
-        )
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="following",
         verbose_name='following'
-        )
+    )
 
     class Meta:
         verbose_name = 'subscribe'
