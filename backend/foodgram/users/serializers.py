@@ -1,31 +1,14 @@
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ObjectDoesNotExist
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 
-from .models import Subscription
+from .models import Subscription, User
 from recipes.models import Recipe
-
-User = get_user_model()
 
 
 class CustomUserSerializer(UserSerializer):
     is_subscribed = serializers.SerializerMethodField(
         method_name='get_is_subscribed'
     )
-
-    def validate_email(self, value):
-        try:
-            User.objects.get(email=value.lower())
-        except ObjectDoesNotExist:
-            # Good to go
-            pass
-        else:
-            # Username in use
-            raise serializers.ValidationError(
-                'Электронная почта должна быть в нижнем регистре'
-            )
-        return value
 
     def get_is_subscribed(self, obj):
         user = self.context['request'].user

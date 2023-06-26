@@ -10,8 +10,6 @@ from tags.models import Tag
 from tags.serializers import TagSerializer
 from users.serializers import CustomUserSerializer
 
-User = get_user_model()
-
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField(method_name='get_id')
