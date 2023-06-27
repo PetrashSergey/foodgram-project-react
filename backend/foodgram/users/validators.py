@@ -15,9 +15,6 @@ class UsernameValidator(validators.RegexValidator):
 
 @deconstructible
 class NotMeUsernameValidator(validators.RegexValidator):
-    """
-    Userneme != "Me"
-    """
     regex = r"^(?!Me$|me$|ME$|mE$).*$"
     message = ("Userneme не может быть - Me")
     flags = 0
@@ -25,9 +22,6 @@ class NotMeUsernameValidator(validators.RegexValidator):
 
 @deconstructible
 class NotDeletedUsernameValidator(validators.RegexValidator):
-    """
-    Userneme != "Deleted"
-    """
     regex = r"^(?!(?i:deleted)).*$"
     message = ("Userneme не может быть - Deleted")
     flags = 0

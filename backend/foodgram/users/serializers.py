@@ -28,9 +28,9 @@ class CustomUserCreateSerializer(UserCreateSerializer):
                 message='Данный логин уже существует.',
                 queryset=User.objects.all()
             ),
-            UsernameValidator,
-            NotMeUsernameValidator,
-            NotDeletedUsernameValidator,
+            UsernameValidator(),
+            NotMeUsernameValidator(),
+            NotDeletedUsernameValidator(),
         ]
     )
 
