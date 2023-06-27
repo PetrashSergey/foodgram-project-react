@@ -21,7 +21,6 @@ class User(AbstractUser):
         (ADMINISTRATOR, 'Администратор'),
     ]
     username = CustomUserManager(
-        max_length=150,
         unique=True,
         blank=False,
         validators=[
