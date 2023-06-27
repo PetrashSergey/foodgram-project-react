@@ -7,10 +7,7 @@ from .model_fields import LowercaseEmailField
 
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
-        case_insensitive_username_field = '{}__iexact'.format(
-            self.model.USERNAME_FIELD
-        )
-        return self.get(**{case_insensitive_username_field: username})
+        return self.get(**{self.model.USERNAME_FIELD + '__iexact': username})
 
 
 class User(AbstractUser):
@@ -37,10 +34,10 @@ class User(AbstractUser):
     role = models.CharField(verbose_name='Роль', max_length=200,
                             choices=ROLE_CHOICES, default=AUTHENTICATED)
 
-    objects = CustomUserManager()
-
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
+
+    objects = CustomUserManager()
 
     class Meta:
         ordering = ('username',)
