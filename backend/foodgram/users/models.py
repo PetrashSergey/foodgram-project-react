@@ -20,7 +20,6 @@ class User(AbstractUser):
         (AUTHENTICATED, 'Аутентифицированный пользователь'),
         (ADMINISTRATOR, 'Администратор'),
     ]
-    objects = CustomUserManager()
     username = models.CharField(
         max_length=150,
         unique=True,
@@ -37,6 +36,8 @@ class User(AbstractUser):
     password = models.CharField(verbose_name='Пароль', max_length=150)
     role = models.CharField(verbose_name='Роль', max_length=200,
                             choices=ROLE_CHOICES, default=AUTHENTICATED)
+
+    objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
