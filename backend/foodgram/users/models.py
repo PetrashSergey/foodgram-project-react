@@ -20,7 +20,9 @@ class User(AbstractUser):
         (AUTHENTICATED, 'Аутентифицированный пользователь'),
         (ADMINISTRATOR, 'Администратор'),
     ]
-    username = CustomUserManager(
+    objects = CustomUserManager()
+    username = models.CharField(
+        max_length=150,
         unique=True,
         blank=False,
         validators=[
