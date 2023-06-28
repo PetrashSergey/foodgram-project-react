@@ -4,11 +4,11 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class UsernameValidator(validators.RegexValidator):
-    regex = r"^[a-zA-Z0-9@+-]+$"
+    regex = r"^[a-z0-9@+-]+$"
     message = (
         "Вы ввели невалидный username!\n"
         "Username может состоять из символов латинского "
-        "алфавита [a-z A-Z], цифр [0-9] и спецсимволов: [ @ + - ]"
+        "алфавита [a-z], цифр [0-9] и спецсимволов: [ @ + - ]"
     )
     flags = 0
 
