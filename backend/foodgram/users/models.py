@@ -7,10 +7,7 @@ from .model_fields import LowercaseEmailField
 
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
-        case_insensitive_username_field = '{}__iexact'.format(
-            self.model.username
-        )
-        return self.get(**{case_insensitive_username_field: username})
+        return self.get(**{self.model.username + '__iexact': username})
 
 
 class User(AbstractUser):
