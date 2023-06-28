@@ -1,13 +1,16 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.validators import RegexValidator
 from django.db import models
 
 from .model_fields import LowercaseEmailField
 
 
-class CustomUserManager(BaseUserManager):
+class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
-        return self.get(**{self.model.USERNAME_FIELD + '__iexact': username})
+        case_insensitive_username_field = '{}__iexact'.format(
+            self.model.username
+        )
+        return self.get(**{case_insensitive_username_field: username})
 
 
 class User(AbstractUser):
@@ -34,7 +37,6 @@ class User(AbstractUser):
     role = models.CharField(verbose_name='Роль', max_length=200,
                             choices=ROLE_CHOICES, default=AUTHENTICATED)
 
-    # USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
 
     objects = CustomUserManager()
