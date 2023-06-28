@@ -14,7 +14,7 @@ ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['http://84.201.179.34']
 
-AUTH_USER_MODEL = 'core.CustomUser'
+AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
